@@ -2,6 +2,8 @@
 
 PyPractice は、PC とスマホのブラウザで使える Python の4択クイズです。バージョン1では全886問から重複なしで10問を出題し、回答ごとに正誤と解説を表示します。結果画面で正答数を確認し、間違えた問題を復習できます。
 
+[公開版を開く](https://tk0903.github.io/Python-Programming-Quiz/)
+
 ## ローカルでの起動
 
 サーバーを使わずに試す場合は、プロジェクト直下の `PyPractice.html` を Edge や Chrome で開きます。ファイルがない場合や、問題・画面を更新した場合は `python scripts/build_questions.py --offline` で生成できます。
