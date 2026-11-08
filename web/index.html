@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Pythonのコードを読みながら学べる、10問ずつの4択クイズ。">
+  <title>PyPractice｜Python 4択クイズ</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%234538c8'/%3E%3Cpath d='m15 14-6 6 6 6m10-12 6 6-6 6m-3-14-4 16' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><path d="m15 14-6 6 6 6m10-12 6 6-6 6m-3-14-4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span>PyPractice</span>
+      </div>
+      <span class="version"><span class="version-dot" aria-hidden="true"></span> VERSION 1.0</span>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section id="home-screen" aria-labelledby="home-title">
+      <div class="hero">
+        <div class="hero-content">
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> PYTHON PRACTICE</p>
+          <h1 id="home-title" tabindex="-1">Pythonを、<br><span>クイズで学ぶ。</span></h1>
+          <p class="hero-description">コードを読んで、答えを選ぶ。<br class="hero-break"> 1問ずつ解説を読みながら、Pythonの理解を深めよう。</p>
+          <div class="hero-actions">
+            <button class="button primary" id="start-button" type="button" disabled>
+              クイズを始める
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5"/></svg>
+            </button>
+            <button class="button secondary" id="retry-button" type="button" hidden>再読み込み</button>
+          </div>
+          <p class="load-message" id="load-message" role="status">問題を読み込んでいます…</p>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="terminal">
+            <div class="terminal-bar">
+              <span class="terminal-dots"><i></i><i></i><i></i></span>
+              <span>practice.py</span>
+              <span class="terminal-language">PYTHON</span>
+            </div>
+            <div class="terminal-code">
+              <span class="terminal-row"><span class="line-number">01</span><code><span class="code-name">squares</span> = [n<span class="code-key">**</span>2 <span class="code-key">for</span> n</code></span>
+              <span class="terminal-row"><span class="line-number">02</span><code>           <span class="code-key">in</span> <span class="code-name">range</span>(<span class="code-number">4</span>)]</code></span>
+              <span class="terminal-row"><span class="line-number">03</span><code><span class="code-name">print</span>(squares)</code></span>
+            </div>
+            <div class="terminal-output"><span>›</span> [0, 1, 4, 9]</div>
+          </div>
+          <div class="visual-caption"><span></span> READ <b>/</b> ANSWER <b>/</b> LEARN</div>
+        </div>
+      </div>
+
+      <dl class="metrics" aria-label="クイズの概要">
+        <div class="metric">
+          <dt>問題バンク</dt>
+          <dd><span id="bank-count">–</span><small>問</small></dd>
+        </div>
+        <div class="metric">
+          <dt>1回の出題数</dt>
+          <dd><span id="quiz-total">10</span><small>問</small></dd>
+        </div>
+        <div class="metric">
+          <dt>回答形式</dt>
+          <dd>4<small>択</small></dd>
+        </div>
+      </dl>
+      <noscript><p class="load-message">このクイズを利用するには、ブラウザで JavaScript を有効にしてください。</p></noscript>
+    </section>
+
+    <section id="quiz-screen" class="quiz-layout" aria-labelledby="question-heading" hidden>
+      <article class="card quiz-card">
+        <div class="question-meta">
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> PRACTICE MODE</p>
+          <p class="question-count" id="question-count">問題 01 / 10</p>
+        </div>
+        <h1 class="section-title" id="question-heading" tabindex="-1">次の問題</h1>
+        <div class="question-text" id="question-text"></div>
+
+        <form id="choice-form">
+          <fieldset>
+            <legend>答えを1つ選んでください</legend>
+            <div class="choices" id="choices"></div>
+          </fieldset>
+          <div class="quiz-actions">
+            <button class="button primary" id="submit-button" type="submit" disabled>回答する</button>
+          </div>
+        </form>
+
+        <div class="feedback" id="feedback" role="status" hidden>
+          <h2 id="feedback-title" tabindex="-1"></h2>
+          <p id="feedback-answer" class="feedback-answer"></p>
+          <p id="feedback-text"></p>
+        </div>
+        <div class="quiz-actions">
+          <button class="button primary" id="next-button" type="button" hidden>
+            <span id="next-button-label">次の問題</span>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5"/></svg>
+          </button>
+        </div>
+      </article>
+
+      <aside class="card session-card" aria-labelledby="session-title">
+        <p class="eyebrow">SESSION</p>
+        <h2 id="session-title">今回の進捗</h2>
+        <div class="session-row"><span>回答済み</span><span id="progress-label">0 / 10 問</span></div>
+        <progress id="progress-bar" aria-label="回答の進捗" value="0" max="10"></progress>
+        <div class="session-row score-row"><span>正解数</span><strong id="correct-count">0</strong></div>
+        <button class="button text-button" id="quit-button" type="button">ホームに戻る</button>
+      </aside>
+    </section>
+
+    <section id="results-screen" class="results-layout" aria-labelledby="result-title" hidden>
+      <div class="card results-card">
+        <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> SESSION COMPLETE</p>
+        <h1 class="section-title" id="result-title" tabindex="-1">クイズ結果</h1>
+        <p class="score-label">正解数</p>
+        <p class="result-score" id="result-score"></p>
+        <p class="result-message" id="result-message"></p>
+        <div class="result-actions">
+          <button class="button primary" id="restart-button" type="button">もう一度挑戦する</button>
+          <button class="button secondary" id="home-button" type="button">ホームへ</button>
+        </div>
+      </div>
+      <section class="card review-card" id="result-review" aria-labelledby="review-title">
+        <h2 id="review-title">間違えた問題を復習</h2>
+        <div class="review-list" id="review-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>PyPractice</span>
+      <span>Python 4択クイズ</span>
+    </div>
+  </footer>
+</body>
+</html>
